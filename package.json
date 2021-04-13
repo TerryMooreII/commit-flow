@@ -1,0 +1,24 @@
+{
+  "name": "commit-flow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git-cz"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commitizen": "^4.2.3",
+    "inquirer": "^8.0.0",
+    "install": "^0.13.0",
+    "npm": "^7.9.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./ex.js"
+    }
+
+  }
+}
