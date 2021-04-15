@@ -96,18 +96,18 @@ const questions = [
 module.exports = {
   prompter: (cz, commit) => {
     cz.prompt(questions).then((answers) => {
-      commit(`${answers.type.split(" ")[0]}${
-answers.scope ? `(${answers.scope})` : ""
-} ${answers.subject}
+      const output = [];
+      output.push(`${answers.type.split(" ")[0]}${answers.scope ? `(${answers.scope})` : ''} ${answers.subject}`)
+      if(answers.summary){
+        output.push(`Summary: ${answers.summary}`)
+      }
+      output.push('Test Plan:')
+      output.push(answers.testplan)
+      output.push(`Ref: ${answers.ref}`)
+      output.push(`Semver: ${answers.semver.split(" ")[0]}`)
 
-Summary: ${answers.summary ? answers.summary : ''}
+      commit(output.join('\n\n'))
 
-Test Plan:
-${answers.testplan}
-
-Ref: ${answers.ref}
-
-Semver: ${answers.semver.split(" ")[0]}`);
     });
   }
 }
