@@ -17,7 +17,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./ex.js"
+      "path": "./cz-config.js"
     }
 
   }
