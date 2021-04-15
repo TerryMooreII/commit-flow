@@ -101,8 +101,7 @@ module.exports = {
       if(answers.summary){
         output.push(`Summary: ${answers.summary}`)
       }
-      output.push('Test Plan:')
-      output.push(answers.testplan)
+      output.push(`Test Plan: \n ${answers.testplan}`)
       output.push(`Ref: ${answers.ref}`)
       output.push(`Semver: ${answers.semver.split(" ")[0]}`)
 
