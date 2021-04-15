@@ -16,20 +16,13 @@ const questions = [
       "chore    (updating grunt tasks etc; no production code change)",
     ],
     filter: function (val) {
-      return val.toLowerCase();
+      return val.split(" ")[0];
     },
   },
   {
     type: "input",
     name: "scope",
     message: "scope (optional)",
-    validate: function (text) {
-      if (text.length > 100) {
-        return "test too long";
-      }
-
-      return true;
-    },
   },
   {
     type: "list",
@@ -45,13 +38,24 @@ const questions = [
     type: "input",
     name: "subject",
     message: "commit message (72 chars max.)",
-    validate: function (text) {
-      if (text.length > 72) {
-        const over = text.length - 72;
-        return `Over by ${over} characters. :(`;
+    validate: function (subject, answers) {
+      if (!subject || subject === '') {
+        return 'Must specify subject';
       }
 
-      return true;
+      const typeSize = answers.type.length;
+      const scopeSize = answers.scope.length;
+      const subjectSize = subject.length;
+      const totalSize = typeSize + scopeSize + subjectSize
+
+
+      if (totalSize <= 72) {
+        return true;
+      }
+
+      const over = totalSize - 72;
+      return `Over by ${over} characters. :(`;
+
     },
   },
   {
@@ -97,7 +101,7 @@ module.exports = {
   prompter: (cz, commit) => {
     cz.prompt(questions).then((answers) => {
       const output = [];
-      output.push(`${answers.type.split(" ")[0]}${answers.scope ? `(${answers.scope})` : ''} ${answers.subject}`)
+      output.push(`${answers.type}${answers.scope ? `(${answers.scope})` : ''} ${answers.subject}`)
       if(answers.summary){
         output.push(`Summary: ${answers.summary}`)
       }
